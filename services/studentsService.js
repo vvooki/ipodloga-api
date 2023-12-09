@@ -13,44 +13,21 @@ async function getAllStudents() {
 }
 
 async function addStudent(student) {
-  const {
-    email,
-    firstName,
-    lastName,
-    indexNumber,
-    isFullTime,
-    studentId,
-    isAdmin,
-  } = student;
+  const { email, firstName, lastName, indexNumber, isFullTime, isAdmin } =
+    student;
   const [result] = await db.query(
-    "INSERT INTO students (email, firstName, lastName, indexNumber, isFullTime, studentId, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [email, firstName, lastName, indexNumber, isFullTime, studentId, isAdmin]
+    "INSERT INTO students (email, firstName, lastName, indexNumber, isFullTime, isAdmin) VALUES (?, ?, ?, ?, ?, ?)",
+    [email, firstName, lastName, indexNumber, isFullTime, isAdmin]
   );
   return result.insertId;
 }
 
 async function updateStudent(id, updatedStudent) {
-  const {
-    email,
-    firstName,
-    lastName,
-    indexNumber,
-    isFullTime,
-    studentId,
-    isAdmin,
-  } = updatedStudent;
+  const { email, firstName, lastName, indexNumber, isFullTime, isAdmin } =
+    updatedStudent;
   await db.query(
-    "UPDATE students SET email = ?, first_name = ?, last_name = ?, index_number = ?, is_full_time = ?, student_id = ?, is_admin = ? WHERE id = ?",
-    [
-      email,
-      firstName,
-      lastName,
-      indexNumber,
-      isFullTime,
-      studentId,
-      isAdmin,
-      id,
-    ]
+    "UPDATE students SET email = ?, firstName = ?, lastName = ?, indexNumber = ?, isFullTime = ?, isAdmin = ? WHERE id = ?",
+    [email, firstName, lastName, indexNumber, isFullTime, isAdmin, id]
   );
   return getStudentById(id);
 }
