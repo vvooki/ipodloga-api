@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const {
   getAllProjects,
@@ -6,9 +6,10 @@ const {
   addProject,
   updateProject,
   deleteProject,
-} = require("../services/projectsService");
+} = require('../services/projectsService');
+const { verifyToken, verifyTokenAndAdmin } = require('./verifyToken');
 
-router.get("/", async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 10;
@@ -19,21 +20,21 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const id = req.params.id;
     const project = await getProject(id);
     if (project) {
       res.send(project);
     } else {
-      res.status(404).send("Project not found");
+      res.status(404).send('Project not found');
     }
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-router.post("/", async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
   try {
     const id = await addProject(req.body);
     const project = await getProject(id);
@@ -43,19 +44,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
   try {
     await updateProject(req.params.id, req.body);
-    res.status(200).send({ message: "Project updated" });
+    res.status(200).send({ message: 'Project updated' });
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
   try {
     await deleteProject(req.params.id);
-    res.status(200).send({ message: "Project deleted" });
+    res.status(200).send({ message: 'Project deleted' });
   } catch (error) {
     res.status(500).send(error.message);
   }
