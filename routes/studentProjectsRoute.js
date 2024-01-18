@@ -25,8 +25,12 @@ router.post('/remove', verifyToken, async (req, res) => {
 
 router.get('/projects/:studentId', verifyToken, async (req, res) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
     const projects = await studentProjectsService.getProjectsForStudent(
       req.params.studentId,
+      page,
+      pageSize,
     );
     res.status(200).json(projects);
   } catch (error) {

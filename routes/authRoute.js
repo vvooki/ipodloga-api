@@ -23,9 +23,6 @@ router.post('/register', async (req, res) => {
       } = req.body;
       const check = await checkIfEmailAlreadyExists(email);
 
-      console.log(req.body);
-      console.log(check);
-
       if (check.length > 0) {
         return res.status(401).json('User with this email already exists');
       } else {
@@ -61,8 +58,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await getStudentByEmail(email);
     try {
-      if (user.length === 0) {
-        console.log('jest user');
+      if (!user) {
         return res.status(401).json('Wrong credentials');
       }
 

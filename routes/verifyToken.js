@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 // do zapytań dla zalogowanych użytkowników
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log('authHeader', authHeader);
   if (authHeader) {
     //deleting Bearer keyword from token
     const token = authHeader.split(' ')[1];

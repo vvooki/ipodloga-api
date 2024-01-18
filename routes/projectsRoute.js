@@ -46,14 +46,16 @@ router.post('/', verifyToken, async (req, res) => {
 
 router.put('/:id', verifyToken, async (req, res) => {
   try {
-    await updateProject(req.params.id, req.body);
-    res.status(200).send({ message: 'Project updated' });
+    const id = await updateProject(req.params.id, req.body);
+    const project = await getProject(id);
+    console.log(id, project);
+    res.status(201).send(project);
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await deleteProject(req.params.id);
     res.status(200).send({ message: 'Project deleted' });

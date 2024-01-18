@@ -42,7 +42,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     const deletedTaskId = await taskService.deleteTask(req.params.id);
-    res.status(200).send(`Task with ID ${deletedTaskId} deleted`);
+    res.status(200).send(deletedTaskId);
   } catch (error) {
     res.status(500).send(error.message);
   }

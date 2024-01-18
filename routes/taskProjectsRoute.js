@@ -23,7 +23,7 @@ router.post('/remove-from-project', verifyToken, async (req, res) => {
   }
 });
 
-router.get('/tasks-for-project/:projectId', verifyToken, async (req, res) => {
+router.get('/:projectId', verifyToken, async (req, res) => {
   try {
     const tasks = await taskProjectsService.getTasksForProject(
       req.params.projectId,
