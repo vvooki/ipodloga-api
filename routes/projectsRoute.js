@@ -48,7 +48,6 @@ router.put('/:id', verifyToken, async (req, res) => {
   try {
     const id = await updateProject(req.params.id, req.body);
     const project = await getProject(id);
-    console.log(id, project);
     res.status(201).send(project);
   } catch (error) {
     res.status(500).send(error.message);

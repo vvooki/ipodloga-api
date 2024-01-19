@@ -31,6 +31,7 @@ router.post('/', verifyToken, async (req, res) => {
 });
 
 router.put('/:id', verifyToken, async (req, res) => {
+  console.log('tutaj');
   try {
     const updatedTask = await taskService.updateTask(req.params.id, req.body);
     res.json(updatedTask);

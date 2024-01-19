@@ -1,24 +1,23 @@
-const pool = require("../database");
+const pool = require('../database');
 
 async function assignTaskToStudent(taskId, studentId) {
-  await pool.query(
-    "INSERT INTO task_students (task_id, student_id) VALUES (?, ?)",
-    [taskId, studentId]
-  );
+  await pool.query('UPDATE tasks SET student_id = ? WHERE task_id = ?', [
+    studentId,
+    taskId,
+  ]);
 }
 
 async function unassignTaskFromStudent(taskId, studentId) {
-  await pool.query(
-    "DELETE FROM task_students WHERE task_id = ? AND student_id = ?",
-    [taskId, studentId]
-  );
+  await pool.query('UPDATE tasks SET student_id = 0 WHERE task_id = ?', [
+    studentId,
+    taskId,
+  ]);
 }
 
 async function getTasksForStudent(studentId) {
-  const [tasks] = await pool.query(
-    "SELECT t.* FROM tasks t JOIN task_students ts ON t.id = ts.task_id WHERE ts.student_id = ?",
-    [studentId]
-  );
+  const [tasks] = await pool.query('SELECT * FROM tasks WHERE student_id = ?', [
+    studentId,
+  ]);
   return tasks;
 }
 
