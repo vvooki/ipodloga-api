@@ -8,6 +8,7 @@ const {
   addStudent,
   getStudentByEmail,
 } = require('../services/studentsService');
+const { sendEmail } = require('../services/mailService');
 
 router.post('/register', async (req, res) => {
   try {
@@ -43,6 +44,11 @@ router.post('/register', async (req, res) => {
         const id = await addStudent(newUser);
 
         res.status(201).json({ id, ...newUser });
+        sendEmail(
+          email,
+          'Utworzenie konta w ipodloga',
+          'Witaj! Cieszymy się że do nas dołączasz.',
+        );
       }
     } catch (err) {
       console.log(err);
