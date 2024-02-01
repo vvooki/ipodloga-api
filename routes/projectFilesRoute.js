@@ -12,6 +12,7 @@ const {
 router.get('/', verifyToken, async (req, res) => {
   try {
     const files = await getFiles();
+    console.log(files);
     res.send(files);
   } catch (error) {
     res.status(500).send(error.message);

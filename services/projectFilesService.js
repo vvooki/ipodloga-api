@@ -14,7 +14,7 @@ async function getFile(id) {
 
 async function getFilesForProject(projectId) {
   const [rows] = await pool.query(
-    'SELECT * FROM project_file WHERE id_project = ?',
+    'SELECT * FROM project_file WHERE project_id = ?',
     [projectId],
   );
   return rows;

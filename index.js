@@ -27,8 +27,8 @@ app.use('/api/tasks', tasksRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/email', emailRoute);
 app.use('/api/files', filesRoute);
-// app.use('/api/task-projects', taskProjectsRoute);
-// app.use('/api/task-students', taskStudentsRoute);
+app.use('/api/task-projects', taskProjectsRoute);
+app.use('/api/task-students', taskStudentsRoute);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
